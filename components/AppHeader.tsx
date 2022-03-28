@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { cn } from "../utils/helpers";
 
 export default function AppHeader() {
   const { asPath } = useRouter();
@@ -13,10 +15,25 @@ export default function AppHeader() {
     <header className="container mx-auto py-8 flex items-center justify-between">
       <nav className="flex gap-6 w-full">
         <Link href="/">
-          <a>LOGO</a>
+          <a className="md:pr-8">
+            <Image
+              className="hover:opacity-70"
+              src="/logo.png"
+              alt="logo"
+              width={50}
+              height={30}
+            />
+          </a>
         </Link>
         <Link href="/">
-          <a className={asPath === "/" ? activeLinkClass : linkClass}>Home</a>
+          <a
+            className={cn(
+              "md:block hidden",
+              asPath === "/" ? activeLinkClass : linkClass
+            )}
+          >
+            Home
+          </a>
         </Link>
         <Link href="/favorites">
           <a className={asPath === "/favorites" ? activeLinkClass : linkClass}>

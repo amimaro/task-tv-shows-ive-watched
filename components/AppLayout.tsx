@@ -7,7 +7,7 @@ type AppLayoutProps = {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="h-full bg-slate-100">
+    <div className="h-full bg-slate-700 text-slate-100">
       <Head>
         <meta
           name="description"
