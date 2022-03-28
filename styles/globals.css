@@ -4,6 +4,6 @@
 
 html,
 body,
-#__next {
-  height: 100%;
+#__next {  
+  @apply bg-slate-700 text-slate-100 h-full
 }

@@ -7,7 +7,7 @@ type AppLayoutProps = {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="h-full bg-slate-700 text-slate-100">
+    <div className="h-full">
       <Head>
         <meta
           name="description"
@@ -15,9 +15,9 @@ export default function AppLayout({ children }: AppLayoutProps) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-grow flex-col">
+      <div className="flex flex-grow flex-col h-full">
         <AppHeader />
-        <main className="container">{children}</main>
+        <main className="container mx-auto h-full">{children}</main>
       </div>
     </div>
   );
