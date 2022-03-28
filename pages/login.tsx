@@ -1,11 +1,22 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import type { NextPage } from "next";
 import Head from "next/head";
+import Router from "next/router";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AppButton } from "../components/AppButton";
-import AppTitle from "../components/AppTitle";
-import { postData } from "../utils/helpers";
+import { loginAsync, selectIsAuth } from "../store/auth-slice";
 
 const Login: NextPage = () => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
+
+  useEffect(() => {
+    if (isAuth) {
+      Router.push("/");
+    }
+  }, [isAuth]);
+
   return (
     <div className="h-full">
       <Head>
@@ -35,11 +46,7 @@ const Login: NextPage = () => {
             return errors;
           }}
           onSubmit={async (values, { setSubmitting }) => {
-            const response = await postData({
-              url: "/api/login",
-              data: values,
-            });
-            console.log(response);
+            dispatch(loginAsync(values));
           }}
         >
           {({ isSubmitting, errors, touched }) => (
@@ -104,3 +111,6 @@ const Login: NextPage = () => {
 };
 
 export default Login;
+function useAppDispatch() {
+  throw new Error("Function not implemented.");
+}

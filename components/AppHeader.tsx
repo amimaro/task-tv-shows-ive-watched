@@ -2,9 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { cn } from "../utils/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions, selectIsAuth } from "../store/auth-slice";
 
 export default function AppHeader() {
   const { asPath } = useRouter();
+  const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
+
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+  };
 
   const linkClass =
     "text-lg transition-opacity hover:opacity-70 border-b-2 border-transparent hover:border-teal-300";
@@ -41,16 +49,20 @@ export default function AppHeader() {
           </a>
         </Link>
         <div className="flex-grow"></div>
-        <Link href="/login">
-          <a className={asPath === "/login" ? activeLinkClass : linkClass}>
-            Login
-          </a>
-        </Link>
-        <Link href="/logout">
-          <a className={asPath === "/logout" ? activeLinkClass : linkClass}>
-            Logout
-          </a>
-        </Link>
+        {!isAuth && (
+          <Link href="/login">
+            <a className={asPath === "/login" ? activeLinkClass : linkClass}>
+              Login
+            </a>
+          </Link>
+        )}
+        {isAuth && (
+          <Link href="">
+            <a className={linkClass} onClick={handleLogout}>
+              Logout
+            </a>
+          </Link>
+        )}
       </nav>
     </header>
   );

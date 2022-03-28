@@ -14,11 +14,41 @@ export const getData = async (url: string) => {
   return res.json();
 };
 
-export const postData = async ({ url, data }: { url: string; data?: any }) => {
+export const postData = async <T>({
+  url,
+  data,
+}: {
+  url: string;
+  data?: any;
+}): Promise<T> => {
   console.log("posting,", url, data);
 
   const res: Response = await fetch(url, {
     method: "POST",
+    headers: new Headers({ "Content-Type": "application/json" }),
+    credentials: "same-origin",
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    console.log("Error in postData", { url, data, res });
+    throw Error(res.statusText);
+  }
+
+  return res.json();
+};
+
+export const deleteData = async ({
+  url,
+  data,
+}: {
+  url: string;
+  data?: any;
+}) => {
+  console.log("deleting,", url, data);
+
+  const res: Response = await fetch(url, {
+    method: "DELETE",
     headers: new Headers({ "Content-Type": "application/json" }),
     credentials: "same-origin",
     body: JSON.stringify(data),
