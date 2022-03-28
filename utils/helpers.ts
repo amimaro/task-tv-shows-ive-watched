@@ -1,3 +1,19 @@
+export const getData = async (url: string) => {
+  console.log("getting,", url);
+
+  const res: Response = await fetch(url, {
+    method: "GET",
+    credentials: "same-origin",
+  });
+
+  if (!res.ok) {
+    console.log("Error in getData", { url, res });
+    throw Error(res.statusText);
+  }
+
+  return res.json();
+};
+
 export const postData = async ({ url, data }: { url: string; data?: any }) => {
   console.log("posting,", url, data);
 
