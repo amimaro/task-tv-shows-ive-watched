@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from ".";
-import { ILoginRequest, ILogoutRequest } from "../types/auth";
+import { ILoginRequest } from "../types/auth";
 import { deleteData, postData } from "../utils/helpers";
 
 export interface IAuthState {
