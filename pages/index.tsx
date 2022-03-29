@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AppButton } from "../components/AppButton";
 import AppMediaWrapper from "../components/AppMediaWrapper";
 import AppMovieItem from "../components/AppMovieItem";
+import AppPaginator from "../components/AppPaginator";
 import AppShowItem from "../components/AppShowItem";
 import AppTitle from "../components/AppTitle";
 import popularSlice, {
@@ -34,6 +36,16 @@ const Home: NextPage = () => {
     dispatch(getPopularShowsAsync());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    dispatch(getPopularMoviesAsync());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentMoviesPage]);
+
+  useEffect(() => {
+    dispatch(getPopularShowsAsync());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentShowsPage]);
 
   const modeClass =
     "hover:opacity-70 border-b-2 border-transparent hover:border-teal-300";
@@ -80,6 +92,32 @@ const Home: NextPage = () => {
             ))}
           </AppMediaWrapper>
         )}
+
+        <div className="pt-4 pb-8">
+          <AppPaginator
+            currentPage={
+              mediaMode === "movies" ? currentMoviesPage : currentShowsPage
+            }
+            handlePrevious={() => {
+              mediaMode === "movies"
+                ? dispatch(
+                    popularActions.setPopularMoviesPage(currentMoviesPage - 1)
+                  )
+                : dispatch(
+                    popularActions.setPopularShowsPage(currentShowsPage - 1)
+                  );
+            }}
+            handleNext={() => {
+              mediaMode === "movies"
+                ? dispatch(
+                    popularActions.setPopularMoviesPage(currentMoviesPage + 1)
+                  )
+                : dispatch(
+                    popularActions.setPopularShowsPage(currentShowsPage + 1)
+                  );
+            }}
+          />
+        </div>
       </div>
     </div>
   );

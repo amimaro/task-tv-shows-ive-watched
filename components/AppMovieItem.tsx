@@ -23,9 +23,11 @@ export default function AppMovieItem({ movie }: AppMovieItemProps) {
             <div className="relative  flex flex-col p-2">
               <AppPopularityIndicator popularity={movie.popularity} />
               <div className="font-semibold pt-4">{movie.title}</div>
-              <div className="font-light text-sm">
-                {format(new Date(movie.release_date), "MMM dd, yyyy")}
-              </div>
+              {movie.release_date && movie.release_date.length > 0 && (
+                <div className="font-light text-sm">
+                  {format(new Date(movie.release_date), "MMM dd, yyyy")}
+                </div>
+              )}
             </div>
           </div>
         </a>
