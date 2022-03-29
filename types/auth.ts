@@ -8,3 +8,7 @@ export type ILoginRequest = {
   username: string;
   password: string;
 };
+
+export type ILogoutRequest = {
+  session_id: string;
+};

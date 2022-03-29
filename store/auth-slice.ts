@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from ".";
-import { ILoginRequest } from "../types/auth";
-import { postData } from "../utils/helpers";
+import { ILoginRequest, ILogoutRequest } from "../types/auth";
+import { deleteData, postData } from "../utils/helpers";
 
 export interface IAuthState {
   expires_at: string | null;
   request_token: string | null;
+  session_id: string | null;
+  account: any;
 }
 
 export const loginAsync = createAsyncThunk(
@@ -19,29 +21,49 @@ export const loginAsync = createAsyncThunk(
   }
 );
 
+export const logoutAsync = createAsyncThunk(
+  "auth/logout",
+  async (_, { getState }) => {
+    const state: any = getState();
+    const response = await deleteData({
+      url: "api/logout",
+      data: {
+        session_id: state.auth.auth_obj.session_id,
+      },
+    });
+    return response;
+  }
+);
+
 const initialState: { auth_obj: IAuthState } = {
   auth_obj: {
     expires_at: null,
     request_token: null,
+    session_id: null,
+    account: null,
   },
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout(state: any) {
-      state.auth_obj.expires_at = null;
-      state.auth_obj.request_token = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
       loginAsync.fulfilled,
       (state, action: PayloadAction<any>) => {
-        state.auth_obj = action.payload;
+        state.auth_obj.expires_at = action.payload.expires_at;
+        state.auth_obj.request_token = action.payload.request_token;
+        state.auth_obj.session_id = action.payload.session_id;
+        state.auth_obj.account = action.payload.account;
       }
     );
+    builder.addCase(logoutAsync.fulfilled, (state) => {
+      state.auth_obj.expires_at = null;
+      state.auth_obj.request_token = null;
+      state.auth_obj.session_id = null;
+      state.auth_obj.account = null;
+    });
   },
 });
 

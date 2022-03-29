@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { cn } from "../utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions, selectIsAuth } from "../store/auth-slice";
+import { authActions, logoutAsync, selectIsAuth } from "../store/auth-slice";
 
 export default function AppHeader() {
   const { asPath } = useRouter();
@@ -11,7 +11,7 @@ export default function AppHeader() {
   const isAuth = useSelector(selectIsAuth);
 
   const handleLogout = () => {
-    dispatch(authActions.logout());
+    dispatch(logoutAsync());
   };
 
   const linkClass =

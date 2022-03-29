@@ -55,7 +55,7 @@ export const deleteData = async ({
   });
 
   if (!res.ok) {
-    console.log("Error in postData", { url, data, res });
+    console.log("Error in deleteData", { url, data, res });
     throw Error(res.statusText);
   }
 
