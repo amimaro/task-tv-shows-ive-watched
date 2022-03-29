@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { cn } from "../utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions, logoutAsync, selectIsAuth } from "../store/auth-slice";
+import { logoutAsync, selectIsAuth } from "../store/auth-slice";
 
 export default function AppHeader() {
   const { asPath } = useRouter();
@@ -15,9 +15,9 @@ export default function AppHeader() {
   };
 
   const linkClass =
-    "text-lg transition-opacity hover:opacity-70 border-b-2 border-transparent hover:border-teal-300";
+    "text-lg hover:opacity-70 border-b-2 border-transparent hover:border-teal-300";
   const activeLinkClass =
-    "text-lg transition-opacity hover:opacity-70 border-b-2 border-teal-500";
+    "text-lg hover:opacity-70 border-b-2 border-teal-500";
 
   return (
     <header className="container mx-auto py-8 flex items-center justify-between">

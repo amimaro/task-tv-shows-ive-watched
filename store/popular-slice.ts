@@ -48,6 +48,10 @@ const popularSlice = createSlice({
     setPopularShowsPage(state, action) {
       state.popularShowsPage = action.payload;
     },
+    resetPages(state) {
+      state.popularMoviesPage = 1;
+      state.popularShowsPage = 1;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
