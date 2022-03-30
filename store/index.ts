@@ -8,6 +8,7 @@ import authSlice from "./auth-slice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import popularSlice from "./popular-slice";
+import favoriteSlice from "./favorite-slice";
 
 const persistConfig = {
   key: "tvShows",
@@ -17,6 +18,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
   popular: popularSlice.reducer,
+  favorite: favoriteSlice.reducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
