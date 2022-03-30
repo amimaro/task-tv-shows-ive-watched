@@ -1,16 +1,12 @@
-import { format } from "date-fns";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppButton } from "../components/AppButton";
 import AppMediaWrapper from "../components/AppMediaWrapper";
 import AppMediaItem from "../components/AppMediaItem";
 import AppPaginator from "../components/AppPaginator";
 import AppTitle from "../components/AppTitle";
-import popularSlice, {
+import {
   getPopularMoviesAsync,
   getPopularShowsAsync,
   popularActions,
