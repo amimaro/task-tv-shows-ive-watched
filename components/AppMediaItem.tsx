@@ -30,9 +30,9 @@ export default function AppMediaItem({
               height={200}
               className="rounded-t-lg"
             />
-            <div className="relative  flex flex-col p-2">
+            <div className="relative  flex flex-col p-2 h-24 justify-end">
               <AppPopularityIndicator popularity={popularity} />
-              <div className="font-semibold pt-4">{name}</div>
+              <div className="font-semibold">{name}</div>
               {date && date.length > 0 && (
                 <div className="font-light text-sm">
                   {format(new Date(date), "MMM dd, yyyy")}
