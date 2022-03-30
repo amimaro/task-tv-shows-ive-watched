@@ -7,9 +7,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppButton } from "../components/AppButton";
 import AppMediaWrapper from "../components/AppMediaWrapper";
-import AppMovieItem from "../components/AppMovieItem";
+import AppMediaItem from "../components/AppMediaItem";
 import AppPaginator from "../components/AppPaginator";
-import AppShowItem from "../components/AppShowItem";
 import AppTitle from "../components/AppTitle";
 import popularSlice, {
   getPopularMoviesAsync,
@@ -80,7 +79,14 @@ const Home: NextPage = () => {
         {mediaMode === "movies" && (
           <AppMediaWrapper>
             {popularMovies.map((movie: any) => (
-              <AppMovieItem movie={movie} key={movie.id} />
+              <AppMediaItem
+                key={movie.id}
+                name={movie.title}
+                date={movie.release_date}
+                path={`/movie/${movie.id}`}
+                poster={movie.poster_path}
+                popularity={movie.popularity}
+              />
             ))}
           </AppMediaWrapper>
         )}
@@ -88,7 +94,14 @@ const Home: NextPage = () => {
         {mediaMode === "shows" && (
           <AppMediaWrapper>
             {popularShows.map((show: any) => (
-              <AppShowItem show={show} key={show.id} />
+              <AppMediaItem
+                key={show.id}
+                name={show.name}
+                date={show.first_air_date}
+                path={`/tv/${show.id}`}
+                poster={show.poster_path}
+                popularity={show.popularity}
+              />
             ))}
           </AppMediaWrapper>
         )}
