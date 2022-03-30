@@ -16,8 +16,7 @@ export default function AppHeader() {
 
   const linkClass =
     "text-lg hover:opacity-70 border-b-2 border-transparent hover:border-teal-300";
-  const activeLinkClass =
-    "text-lg hover:opacity-70 border-b-2 border-teal-500";
+  const activeLinkClass = "text-lg hover:opacity-70 border-b-2 border-teal-500";
 
   return (
     <header className="container mx-auto py-8 flex items-center justify-between">
@@ -43,11 +42,15 @@ export default function AppHeader() {
             Home
           </a>
         </Link>
-        <Link href="/favorites">
-          <a className={asPath === "/favorites" ? activeLinkClass : linkClass}>
-            Favorites
-          </a>
-        </Link>
+        {isAuth && (
+          <Link href="/favorites">
+            <a
+              className={asPath === "/favorites" ? activeLinkClass : linkClass}
+            >
+              Favorites
+            </a>
+          </Link>
+        )}
         <div className="flex-grow"></div>
         {!isAuth && (
           <Link href="/login">
