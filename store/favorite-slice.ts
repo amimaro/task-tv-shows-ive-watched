@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from ".";
-import { getData } from "../utils/helpers";
+import { IMarkAsFavorite } from "../types/favorite";
+import { getData, postData } from "../utils/helpers";
 
 export interface IFavoriteState {
   favoriteMovies: any;
@@ -27,6 +28,23 @@ export const getFavoriteShowsAsync = createAsyncThunk(
     const response = await getData(
       `api/favorite-shows?session_id=${state.auth.auth_obj.session_id}&account_id=${state.auth.auth_obj.account.id}&page=${state.favorite.favoriteShowsPage}`
     );
+    return response;
+  }
+);
+
+export const markAsFavoriteAsync = createAsyncThunk(
+  "favorite/mark",
+  async (payload: IMarkAsFavorite, { getState, dispatch }) => {
+    const state: any = getState();
+    const response = await postData({
+      url: `api/favorite?session_id=${state.auth.auth_obj.session_id}&account_id=${state.auth.auth_obj.account.id}&page=${state.favorite.favoriteShowsPage}`,
+      data: payload,
+    });
+    if (payload.media_type === "movie") {
+      dispatch(getFavoriteMoviesAsync());
+    } else {
+      dispatch(getFavoriteShowsAsync());
+    }
     return response;
   }
 );

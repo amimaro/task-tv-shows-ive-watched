@@ -77,11 +77,13 @@ const Home: NextPage = () => {
             {popularMovies.map((movie: any) => (
               <AppMediaItem
                 key={movie.id}
+                id={movie.id}
                 name={movie.title}
                 date={movie.release_date}
                 path={`/movie/${movie.id}`}
                 poster={movie.poster_path}
                 popularity={movie.popularity}
+                mediaType="movie"
               />
             ))}
           </AppMediaWrapper>
@@ -92,11 +94,13 @@ const Home: NextPage = () => {
             {popularShows.map((show: any) => (
               <AppMediaItem
                 key={show.id}
+                id={show.id}
                 name={show.name}
                 date={show.first_air_date}
                 path={`/tv/${show.id}`}
                 poster={show.poster_path}
                 popularity={show.popularity}
+                mediaType="tv"
               />
             ))}
           </AppMediaWrapper>

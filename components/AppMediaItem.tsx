@@ -2,36 +2,54 @@ import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
 import AppPopularityIndicator from "./AppPopularityIndicator";
+import AppFavoriteIndicator from "./AppFavoriteIndicator";
+import { useSelector } from "react-redux";
+import { selectIsAuth } from "../store/auth-slice";
 
 type AppMediaItemProps = {
+  id: number;
   name: string;
   date: string;
   path: string;
   poster: string;
   popularity: number;
+  mediaType: "tv" | "movie";
 };
 
 export default function AppMediaItem({
+  id,
   name,
   date,
   path,
   poster,
   popularity,
+  mediaType,
 }: AppMediaItemProps) {
+  const isAuth = useSelector(selectIsAuth);
+
   return (
     <div className="cursor-pointer hover:opacity-80">
-      <Link href={path}>
-        <a>
-          <div className="mx-auto flex flex-col bg-slate-50 text-slate-900 rounded-lg shadow-md shadow-teal-500 max-w-[200px]">
+      <div className="mx-auto flex flex-col bg-slate-50 text-slate-900 rounded-lg shadow-md shadow-teal-500 max-w-[200px]">
+        <Link href={path}>
+          <a>
             <Image
               src={`https://image.tmdb.org/t/p/w500${poster}`}
               alt={`${name} poster`}
-              width={130}
+              width={200}
               height={200}
               className="rounded-t-lg"
             />
-            <div className="relative  flex flex-col p-2 h-24 justify-end">
-              <AppPopularityIndicator popularity={popularity} />
+          </a>
+        </Link>
+        <div className="relative">
+          <AppPopularityIndicator popularity={popularity} />
+          {isAuth && (
+            <AppFavoriteIndicator mediaId={id} mediaType={mediaType} />
+          )}
+        </div>
+        <Link href={path}>
+          <a>
+            <div className="flex flex-col p-2 h-24 justify-end">
               <div className="font-semibold">{name}</div>
               {date && date.length > 0 && (
                 <div className="font-light text-sm">
@@ -39,9 +57,9 @@ export default function AppMediaItem({
                 </div>
               )}
             </div>
-          </div>
-        </a>
-      </Link>
+          </a>
+        </Link>
+      </div>
     </div>
   );
 }
