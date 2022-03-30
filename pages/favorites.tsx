@@ -15,8 +15,18 @@ import {
   selectFavoriteMoviesPage,
   selectFavoriteShowsPage,
 } from "../store/favorite-slice";
+import { selectIsAuth } from "../store/auth-slice";
+import Router from "next/router";
 
 const Favorites: NextPage = () => {
+  const isAuth = useSelector(selectIsAuth);
+
+  useEffect(() => {
+    if (!isAuth) {
+      Router.push("/");
+    }
+  }, [isAuth]);
+
   const [mediaMode, setMediaMode] = useState<"movies" | "shows">("movies");
   const dispatch = useDispatch();
   const favoriteMovies = useSelector(selectFavoriteMovies);
