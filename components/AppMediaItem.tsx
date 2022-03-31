@@ -37,17 +37,21 @@ export default function AppMediaItem({
       <div className="mx-auto flex flex-col bg-slate-50 text-slate-900 rounded-lg shadow-md shadow-teal-500 max-w-[200px]">
         <Link href={path}>
           <a>
-            <Image
-              src={
-                poster
-                  ? `https://image.tmdb.org/t/p/w500${poster}`
-                  : `/default_poster.png`
-              }
-              alt={`${name} poster`}
-              width={200}
-              height={200}
-              className="rounded-t-lg"
-            />
+            {poster !== "episode" ? (
+              <Image
+                src={
+                  poster
+                    ? `https://image.tmdb.org/t/p/w500${poster}`
+                    : `/default_poster.png`
+                }
+                alt={`${name} poster`}
+                width={200}
+                height={200}
+                className="rounded-t-lg"
+              />
+            ) : (
+              <div className="h-10"></div>
+            )}
           </a>
         </Link>
         <div className="relative">

@@ -19,7 +19,7 @@ const Show: NextPage = () => {
     (async () => {
       if (!show_id) return;
       const showDetailsRes = await getData(
-        `/api/show-details?tv_id=${show_id}`
+        `/api/show-details?show_id=${show_id}`
       );
       setShowDetails(showDetailsRes);
     })();
@@ -35,7 +35,7 @@ const Show: NextPage = () => {
         <title>{"Show - TV shows I've watched"}</title>
       </Head>
 
-      <div className="flex flex-col items-center gap-5">
+      <div className="flex flex-col items-center gap-5 pb-10">
         <AppTitle>{showDetails.name}</AppTitle>
         <div className="flex md:flex-row flex-col md:items-start items-center gap-5">
           <img
