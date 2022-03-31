@@ -15,7 +15,7 @@ export const getFavoriteMoviesAsync = createAsyncThunk(
   async (_, { getState }) => {
     const state: any = getState();
     const response = await getData(
-      `api/favorite-movies?session_id=${state.auth.auth_obj.session_id}&account_id=${state.auth.auth_obj.account.id}&page=${state.favorite.favoriteMoviesPage}`
+      `/api/favorite-movies?session_id=${state.auth.auth_obj.session_id}&account_id=${state.auth.auth_obj.account.id}&page=${state.favorite.favoriteMoviesPage}`
     );
     return response;
   }
@@ -26,7 +26,7 @@ export const getFavoriteShowsAsync = createAsyncThunk(
   async (_, { getState }) => {
     const state: any = getState();
     const response = await getData(
-      `api/favorite-shows?session_id=${state.auth.auth_obj.session_id}&account_id=${state.auth.auth_obj.account.id}&page=${state.favorite.favoriteShowsPage}`
+      `/api/favorite-shows?session_id=${state.auth.auth_obj.session_id}&account_id=${state.auth.auth_obj.account.id}&page=${state.favorite.favoriteShowsPage}`
     );
     return response;
   }
@@ -37,7 +37,7 @@ export const markAsFavoriteAsync = createAsyncThunk(
   async (payload: IMarkAsFavorite, { getState, dispatch }) => {
     const state: any = getState();
     const response = await postData({
-      url: `api/favorite?session_id=${state.auth.auth_obj.session_id}&account_id=${state.auth.auth_obj.account.id}&page=${state.favorite.favoriteShowsPage}`,
+      url: `/api/favorite?session_id=${state.auth.auth_obj.session_id}&account_id=${state.auth.auth_obj.account.id}&page=${state.favorite.favoriteShowsPage}`,
       data: payload,
     });
     if (payload.media_type === "movie") {

@@ -132,7 +132,7 @@ const Home: NextPage = () => {
                 id={show.id}
                 name={show.name}
                 date={show.first_air_date}
-                path={`/tv/${show.id}`}
+                path={`/show/${show.id}`}
                 poster={show.poster_path}
                 popularity={show.popularity}
                 mediaType="tv"

@@ -14,7 +14,7 @@ export const getPopularMoviesAsync = createAsyncThunk(
   async (_, { getState }) => {
     const state: any = getState();
     const response = await getData(
-      `api/popular-movies?page=${state.popular.popularMoviesPage}`
+      `/api/popular-movies?page=${state.popular.popularMoviesPage}`
     );
     return response;
   }
@@ -25,7 +25,7 @@ export const getPopularShowsAsync = createAsyncThunk(
   async (_, { getState }) => {
     const state: any = getState();
     const response = await getData(
-      `api/popular-shows?page=${state.popular.popularShowsPage}`
+      `/api/popular-shows?page=${state.popular.popularShowsPage}`
     );
     return response;
   }
@@ -36,7 +36,7 @@ export const searchMoviesAsync = createAsyncThunk(
   async (query: string, { getState }) => {
     const state: any = getState();
     const response = await getData(
-      `api/search-movies?page=${state.popular.popularMoviesPage}&query=${query}`
+      `/api/search-movies?page=${state.popular.popularMoviesPage}&query=${query}`
     );
     return response;
   }
@@ -47,7 +47,7 @@ export const searchShowsAsync = createAsyncThunk(
   async (query: string, { getState }) => {
     const state: any = getState();
     const response = await getData(
-      `api/search-shows?page=${state.popular.popularShowsPage}&query=${query}`
+      `/api/search-shows?page=${state.popular.popularShowsPage}&query=${query}`
     );
     return response;
   }

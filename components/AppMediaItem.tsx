@@ -38,7 +38,11 @@ export default function AppMediaItem({
         <Link href={path}>
           <a>
             <Image
-              src={`https://image.tmdb.org/t/p/w500${poster}`}
+              src={
+                poster
+                  ? `https://image.tmdb.org/t/p/w500${poster}`
+                  : `/default_poster.png`
+              }
               alt={`${name} poster`}
               width={200}
               height={200}
@@ -48,9 +52,11 @@ export default function AppMediaItem({
         </Link>
         <div className="relative">
           <AppMediaControlWrapper>
-            <AppMediaControlItem>
-              <AppPopularityIndicator popularity={popularity} />
-            </AppMediaControlItem>
+            {popularity >= 0 && (
+              <AppMediaControlItem>
+                <AppPopularityIndicator popularity={popularity} />
+              </AppMediaControlItem>
+            )}
             {isAuth && (
               <>
                 <AppMediaControlItem>
