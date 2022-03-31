@@ -15,14 +15,10 @@ const ShowSeason: NextPage = () => {
 
   useEffect(() => {
     (async () => {
-      console.log(season_number, show_id);
-
       if (season_number === undefined || show_id === undefined) return;
       const seasonDetailsRes = await getData(
         `/api/show-season-details?show_id=${show_id}&season_number=${season_number}`
       );
-      console.log(seasonDetailsRes);
-
       setSeasonDetails(seasonDetailsRes);
     })();
   }, [show_id, season_number]);
@@ -46,12 +42,12 @@ const ShowSeason: NextPage = () => {
             <div className="flex items-center gap-5 font-semibold">
               <div>Release:</div>
               <div>
-                {seasonDetails.air_date && seasonDetails.air_date.length > 0 && (
-                  <div>
-                    {format(new Date(seasonDetails.air_date), "MMM dd, yyyy")}
-                    asdasdasd
-                  </div>
-                )}
+                {seasonDetails.air_date &&
+                  seasonDetails.air_date.length > 0 && (
+                    <div>
+                      {format(new Date(seasonDetails.air_date), "MMM dd, yyyy")}
+                    </div>
+                  )}
               </div>
             </div>
           )}

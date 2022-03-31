@@ -49,8 +49,10 @@ export default function AppMediaItem({
                 height={200}
                 className="rounded-t-lg"
               />
-            ) : (
+            ) : isAuth ? (
               <div className="h-10"></div>
+            ) : (
+              ""
             )}
           </a>
         </Link>
@@ -79,7 +81,11 @@ export default function AppMediaItem({
         </div>
         <Link href={path}>
           <a>
-            <div className="flex flex-col p-2 h-24 justify-end">
+            <div
+              className={`flex flex-col p-2 justify-end ${
+                poster !== 'episode' ? "h-24" : ""
+              }`}
+            >
               <div className="font-semibold">{name}</div>
               {date && date.length > 0 && (
                 <div className="font-light text-sm">
