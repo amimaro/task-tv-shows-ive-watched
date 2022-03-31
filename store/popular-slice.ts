@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from ".";
 import { getData } from "../utils/helpers";
+import {
+  getFavoriteMoviesAsync,
+  getFavoriteShowsAsync,
+} from "./favorite-slice";
 
 export interface IPopularState {
   popularMovies: any;
@@ -11,22 +15,24 @@ export interface IPopularState {
 
 export const getPopularMoviesAsync = createAsyncThunk(
   "popular/getMovies",
-  async (_, { getState }) => {
+  async (_, { getState, dispatch }) => {
     const state: any = getState();
     const response = await getData(
       `/api/popular-movies?page=${state.popular.popularMoviesPage}`
     );
+    dispatch(getFavoriteMoviesAsync());
     return response;
   }
 );
 
 export const getPopularShowsAsync = createAsyncThunk(
   "popular/getShows",
-  async (_, { getState }) => {
+  async (_, { getState, dispatch }) => {
     const state: any = getState();
     const response = await getData(
       `/api/popular-shows?page=${state.popular.popularShowsPage}`
     );
+    dispatch(getFavoriteShowsAsync());
     return response;
   }
 );
