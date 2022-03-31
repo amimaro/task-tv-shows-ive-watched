@@ -31,6 +31,28 @@ export const getPopularShowsAsync = createAsyncThunk(
   }
 );
 
+export const searchMoviesAsync = createAsyncThunk(
+  "popular/searchMovies",
+  async (query: string, { getState }) => {
+    const state: any = getState();
+    const response = await getData(
+      `api/search-movies?page=${state.popular.popularMoviesPage}&query=${query}`
+    );
+    return response;
+  }
+);
+
+export const searchShowsAsync = createAsyncThunk(
+  "popular/searchShows",
+  async (query: string, { getState }) => {
+    const state: any = getState();
+    const response = await getData(
+      `api/search-shows?page=${state.popular.popularShowsPage}&query=${query}`
+    );
+    return response;
+  }
+);
+
 const initialState: IPopularState = {
   popularMovies: null,
   popularShows: null,
@@ -62,6 +84,18 @@ const popularSlice = createSlice({
     );
     builder.addCase(
       getPopularShowsAsync.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.popularShows = action.payload;
+      }
+    );
+    builder.addCase(
+      searchMoviesAsync.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.popularMovies = action.payload;
+      }
+    );
+    builder.addCase(
+      searchShowsAsync.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.popularShows = action.payload;
       }

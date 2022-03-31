@@ -14,16 +14,40 @@ import {
   selectPopularShows,
   selectPopularMoviesPage,
   selectPopularShowsPage,
+  searchMoviesAsync,
+  searchShowsAsync,
 } from "../store/popular-slice";
+import useDebounce from "../hooks/useDebounce";
 
 const Home: NextPage = () => {
   const [mediaMode, setMediaMode] = useState<"movies" | "shows">("movies");
+  const [searchInput, setSearchInput] = useState("");
+
   const dispatch = useDispatch();
   const popularMovies = useSelector(selectPopularMovies);
   const popularShows = useSelector(selectPopularShows);
-
   const currentMoviesPage = useSelector(selectPopularMoviesPage);
   const currentShowsPage = useSelector(selectPopularShowsPage);
+
+  useDebounce(1000, searchInput, () => {
+    if (searchInput.length > 0) {
+      if (mediaMode === "movies") {
+        dispatch(searchMoviesAsync(searchInput));
+        dispatch(popularActions.setPopularMoviesPage(1));
+      } else {
+        dispatch(searchShowsAsync(searchInput));
+        dispatch(popularActions.setPopularShowsPage(1));
+      }
+    } else {
+      if (mediaMode === "movies") {
+        dispatch(getPopularMoviesAsync());
+        dispatch(popularActions.setPopularMoviesPage(1));
+      } else {
+        dispatch(getPopularShowsAsync());
+        dispatch(popularActions.setPopularShowsPage(1));
+      }
+    }
+  });
 
   useEffect(() => {
     dispatch(popularActions.resetPages());
@@ -53,8 +77,14 @@ const Home: NextPage = () => {
       </Head>
 
       <div>
-        <div className="flex justify-center md:mb-0 mb-6 ">
-          <AppTitle>What is popular now?</AppTitle>
+        <div className="flex justify-center mb-6">
+          <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="bg-transparent border-b-2 w-full text-3xl"
+            placeholder="Search for your Favorite Movies and TV Shows"
+          />
         </div>
 
         <div className="flex gap-8 justify-around md:justify-start">
