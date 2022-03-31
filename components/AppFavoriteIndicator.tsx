@@ -30,7 +30,7 @@ const HeartIndicator = ({ marked }: { marked: boolean }) => {
 type AppFavoriteIndicatorProps = {
   viewOnly?: boolean;
   mediaId: number;
-  mediaType: string;
+  mediaType: "movie" | "tv";
 };
 
 export default function AppFavoriteIndicator({
