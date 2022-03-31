@@ -10,7 +10,11 @@ const HeartIndicator = ({ marked }: { marked: boolean }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-10 w-10 ${marked ? "text-red-400" : "text-slate-400"}`}
+      className={`h-10 w-10 ${
+        marked
+          ? "text-red-400 hover:text-red-300"
+          : "text-slate-400 hover:text-slate-300"
+      }`}
       viewBox="0 0 20 20"
       fill="currentColor"
     >
