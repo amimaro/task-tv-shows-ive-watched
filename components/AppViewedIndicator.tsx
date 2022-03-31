@@ -87,7 +87,7 @@ export default function AppFavoriteIndicator({
 
   const IconComponent = viewed ? <EyeIndicator /> : <EyeOffIndicator />;
   return (
-    <div className="absolute -top-1 right-1/2  w-10 h-10 transform -translate-y-1/2 translate-x-1/2">
+    <div className="w-10 h-10">
       {viewOnly ? (
         { IconComponent }
       ) : (

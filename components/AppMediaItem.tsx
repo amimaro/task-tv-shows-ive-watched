@@ -6,6 +6,7 @@ import AppFavoriteIndicator from "./AppFavoriteIndicator";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../store/auth-slice";
 import AppViewedIndicator from "./AppViewedIndicator";
+import AppMediaControlWrapper from "./AppMediaControlWrapper";
 
 type AppMediaItemProps = {
   id: number;
@@ -45,17 +46,19 @@ export default function AppMediaItem({
           </a>
         </Link>
         <div className="relative">
-          <AppPopularityIndicator popularity={popularity} />
-          {isAuth && (
-            <>
-              <AppViewedIndicator
-                mediaId={id}
-                mediaType={mediaType}
-                mediaObj={mediaObj}
-              />
-              <AppFavoriteIndicator mediaId={id} mediaType={mediaType} />
-            </>
-          )}
+          <AppMediaControlWrapper>
+            <AppPopularityIndicator popularity={popularity} />
+            {isAuth && (
+              <>
+                <AppViewedIndicator
+                  mediaId={id}
+                  mediaType={mediaType}
+                  mediaObj={mediaObj}
+                />
+                <AppFavoriteIndicator mediaId={id} mediaType={mediaType} />
+              </>
+            )}
+          </AppMediaControlWrapper>
         </div>
         <Link href={path}>
           <a>

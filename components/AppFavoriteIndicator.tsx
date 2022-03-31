@@ -64,7 +64,7 @@ export default function AppFavoriteIndicator({
     );
   };
   return (
-    <div className="absolute -top-1 right-3  w-10 h-10 transform -translate-y-1/2">
+    <div className="w-10 h-10">
       {viewOnly ? (
         <HeartIndicator marked={marked} />
       ) : (
