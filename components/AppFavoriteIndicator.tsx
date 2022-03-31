@@ -10,7 +10,7 @@ const HeartIndicator = ({ marked }: { marked: boolean }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-10 w-10 ${
+      className={`h-6 w-6 ${
         marked
           ? "text-red-400 hover:text-red-300"
           : "text-slate-400 hover:text-slate-300"
@@ -64,7 +64,7 @@ export default function AppFavoriteIndicator({
     );
   };
   return (
-    <div className="w-10 h-10">
+    <div className="pt-1 pl-1">
       {viewOnly ? (
         <HeartIndicator marked={marked} />
       ) : (

@@ -12,7 +12,7 @@ const EyeIndicator = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-10"
+      className="h-6 w-6"
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -29,7 +29,7 @@ const EyeOffIndicator = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-10"
+      className="h-6 w-6"
       viewBox="0 0 20 20"
       fill="currentColor"
     >
@@ -87,7 +87,7 @@ export default function AppFavoriteIndicator({
 
   const IconComponent = viewed ? <EyeIndicator /> : <EyeOffIndicator />;
   return (
-    <div className="w-10 h-10">
+    <div className="pt-1 pl-1">
       {viewOnly ? (
         { IconComponent }
       ) : (
