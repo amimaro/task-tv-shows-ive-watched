@@ -111,6 +111,3 @@ const Login: NextPage = () => {
 };
 
 export default Login;
-function useAppDispatch() {
-  throw new Error("Function not implemented.");
-}
