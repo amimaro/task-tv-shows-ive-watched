@@ -5,6 +5,7 @@ import AppPopularityIndicator from "./AppPopularityIndicator";
 import AppFavoriteIndicator from "./AppFavoriteIndicator";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../store/auth-slice";
+import AppViewedIndicator from "./AppViewedIndicator";
 
 type AppMediaItemProps = {
   id: number;
@@ -14,6 +15,7 @@ type AppMediaItemProps = {
   poster: string;
   popularity: number;
   mediaType: "tv" | "movie";
+  mediaObj: any;
 };
 
 export default function AppMediaItem({
@@ -24,6 +26,7 @@ export default function AppMediaItem({
   poster,
   popularity,
   mediaType,
+  mediaObj,
 }: AppMediaItemProps) {
   const isAuth = useSelector(selectIsAuth);
 
@@ -44,7 +47,14 @@ export default function AppMediaItem({
         <div className="relative">
           <AppPopularityIndicator popularity={popularity} />
           {isAuth && (
-            <AppFavoriteIndicator mediaId={id} mediaType={mediaType} />
+            <>
+              <AppViewedIndicator
+                mediaId={id}
+                mediaType={mediaType}
+                mediaObj={mediaObj}
+              />
+              <AppFavoriteIndicator mediaId={id} mediaType={mediaType} />
+            </>
           )}
         </div>
         <Link href={path}>

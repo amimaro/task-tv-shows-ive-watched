@@ -43,13 +43,22 @@ export default function AppHeader() {
           </a>
         </Link>
         {isAuth && (
-          <Link href="/favorites">
-            <a
-              className={asPath === "/favorites" ? activeLinkClass : linkClass}
-            >
-              Favorites
-            </a>
-          </Link>
+          <>
+            <Link href="/favorites">
+              <a
+                className={
+                  asPath === "/favorites" ? activeLinkClass : linkClass
+                }
+              >
+                Favorites
+              </a>
+            </Link>
+            <Link href="/viewed">
+              <a className={asPath === "/viewed" ? activeLinkClass : linkClass}>
+                Viewed
+              </a>
+            </Link>
+          </>
         )}
         <div className="flex-grow"></div>
         {!isAuth && (

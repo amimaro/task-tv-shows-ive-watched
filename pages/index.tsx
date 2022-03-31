@@ -118,6 +118,7 @@ const Home: NextPage = () => {
                 poster={movie.poster_path}
                 popularity={movie.popularity}
                 mediaType="movie"
+                mediaObj={movie}
               />
             ))}
           </AppMediaWrapper>
@@ -135,6 +136,7 @@ const Home: NextPage = () => {
                 poster={show.poster_path}
                 popularity={show.popularity}
                 mediaType="tv"
+                mediaObj={show}
               />
             ))}
           </AppMediaWrapper>

@@ -7,18 +7,16 @@ import AppMediaItem from "../components/AppMediaItem";
 import AppPaginator from "../components/AppPaginator";
 import AppTitle from "../components/AppTitle";
 import {
-  getFavoriteMoviesAsync,
-  getFavoriteShowsAsync,
-  favoriteActions,
-  selectFavoriteMovies,
-  selectFavoriteShows,
-  selectFavoriteMoviesPage,
-  selectFavoriteShowsPage,
-} from "../store/favorite-slice";
+  viewedActions,
+  selectViewedMoviesPage,
+  selectViewedShowsPage,
+  selectViewedShows,
+  selectViewedMovies,
+} from "../store/viewed-slice";
 import { selectIsAuth } from "../store/auth-slice";
 import Router from "next/router";
 
-const Favorites: NextPage = () => {
+const Viewed: NextPage = () => {
   const isAuth = useSelector(selectIsAuth);
 
   useEffect(() => {
@@ -29,41 +27,29 @@ const Favorites: NextPage = () => {
 
   const [mediaMode, setMediaMode] = useState<"movies" | "shows">("movies");
   const dispatch = useDispatch();
-  const favoriteMovies = useSelector(selectFavoriteMovies);
-  const favoriteShows = useSelector(selectFavoriteShows);
+  const viewedMovies = useSelector(selectViewedMovies);
+  const viewedShows = useSelector(selectViewedShows);
 
-  const currentMoviesPage = useSelector(selectFavoriteMoviesPage);
-  const currentShowsPage = useSelector(selectFavoriteShowsPage);
+  const currentMoviesPage = useSelector(selectViewedMoviesPage);
+  const currentShowsPage = useSelector(selectViewedShowsPage);
 
   useEffect(() => {
-    dispatch(favoriteActions.resetPages());
-    dispatch(getFavoriteMoviesAsync());
-    dispatch(getFavoriteShowsAsync());
+    dispatch(viewedActions.resetPages());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    dispatch(getFavoriteMoviesAsync());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentMoviesPage]);
-
-  useEffect(() => {
-    dispatch(getFavoriteShowsAsync());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentShowsPage]);
 
   const modeClass =
     "hover:opacity-70 border-b-2 border-transparent hover:border-teal-300";
   const activeModeClass = "hover:opacity-70 border-b-2 border-teal-500";
 
   const hasData =
-    (mediaMode === "movies" && favoriteMovies.length > 0) ||
-    (mediaMode === "shows" && favoriteShows.length > 0);
+    (mediaMode === "movies" && viewedMovies && viewedMovies.length > 0) ||
+    (mediaMode === "shows" && viewedShows && viewedShows.length > 0);
 
   return (
     <div>
       <Head>
-        <title>{"Favorites - TV shows I've watched"}</title>
+        <title>{"Viewed - TV shows I've watched"}</title>
       </Head>
 
       <div>
@@ -82,9 +68,9 @@ const Favorites: NextPage = () => {
           </button>
         </div>
 
-        {mediaMode === "movies" && (
+        {hasData && mediaMode === "movies" && (
           <AppMediaWrapper>
-            {favoriteMovies.map((movie: any) => (
+            {viewedMovies.map((movie: any) => (
               <AppMediaItem
                 key={movie.id}
                 id={movie.id}
@@ -100,9 +86,9 @@ const Favorites: NextPage = () => {
           </AppMediaWrapper>
         )}
 
-        {mediaMode === "shows" && (
+        {hasData && mediaMode === "shows" && (
           <AppMediaWrapper>
-            {favoriteShows.map((show: any) => (
+            {viewedShows.map((show: any) => (
               <AppMediaItem
                 key={show.id}
                 id={show.id}
@@ -118,7 +104,7 @@ const Favorites: NextPage = () => {
           </AppMediaWrapper>
         )}
 
-        {!hasData && <AppTitle>No favorite {mediaMode} yet.</AppTitle>}
+        {!hasData && <AppTitle>No viewed {mediaMode} yet.</AppTitle>}
         {hasData && (
           <div className="pt-4 pb-8">
             <AppPaginator
@@ -128,23 +114,19 @@ const Favorites: NextPage = () => {
               handlePrevious={() => {
                 mediaMode === "movies"
                   ? dispatch(
-                      favoriteActions.setFavoriteMoviesPage(
-                        currentMoviesPage - 1
-                      )
+                      viewedActions.setViewedMoviesPage(currentMoviesPage - 1)
                     )
                   : dispatch(
-                      favoriteActions.setFavoriteShowsPage(currentShowsPage - 1)
+                      viewedActions.setViewedShowsPage(currentShowsPage - 1)
                     );
               }}
               handleNext={() => {
                 mediaMode === "movies"
                   ? dispatch(
-                      favoriteActions.setFavoriteMoviesPage(
-                        currentMoviesPage + 1
-                      )
+                      viewedActions.setViewedMoviesPage(currentMoviesPage + 1)
                     )
                   : dispatch(
-                      favoriteActions.setFavoriteShowsPage(currentShowsPage + 1)
+                      viewedActions.setViewedShowsPage(currentShowsPage + 1)
                     );
               }}
             />
@@ -155,4 +137,4 @@ const Favorites: NextPage = () => {
   );
 };
 
-export default Favorites;
+export default Viewed;

@@ -1,5 +1,5 @@
 export type IMarkAsFavorite = {
-  media_type: string;
-  media_id: number;
   favorite: boolean;
+  media_type: "movie" | "tv";
+  media_id: number;
 };
