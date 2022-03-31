@@ -70,6 +70,10 @@ const Home: NextPage = () => {
     "hover:opacity-70 border-b-2 border-transparent hover:border-teal-300";
   const activeModeClass = "hover:opacity-70 border-b-2 border-teal-500";
 
+  const hasData =
+    (mediaMode === "movies" && popularMovies.length > 0) ||
+    (mediaMode === "shows" && popularShows.length > 0);
+
   return (
     <div>
       <Head>
@@ -136,31 +140,37 @@ const Home: NextPage = () => {
           </AppMediaWrapper>
         )}
 
-        <div className="pt-4 pb-8">
-          <AppPaginator
-            currentPage={
-              mediaMode === "movies" ? currentMoviesPage : currentShowsPage
-            }
-            handlePrevious={() => {
-              mediaMode === "movies"
-                ? dispatch(
-                    popularActions.setPopularMoviesPage(currentMoviesPage - 1)
-                  )
-                : dispatch(
-                    popularActions.setPopularShowsPage(currentShowsPage - 1)
-                  );
-            }}
-            handleNext={() => {
-              mediaMode === "movies"
-                ? dispatch(
-                    popularActions.setPopularMoviesPage(currentMoviesPage + 1)
-                  )
-                : dispatch(
-                    popularActions.setPopularShowsPage(currentShowsPage + 1)
-                  );
-            }}
-          />
-        </div>
+        {!hasData && searchInput.length > 0 && (
+          <AppTitle>Nothing was found for {`"${searchInput}"`}</AppTitle>
+        )}
+
+        {hasData && (
+          <div className="pt-4 pb-8">
+            <AppPaginator
+              currentPage={
+                mediaMode === "movies" ? currentMoviesPage : currentShowsPage
+              }
+              handlePrevious={() => {
+                mediaMode === "movies"
+                  ? dispatch(
+                      popularActions.setPopularMoviesPage(currentMoviesPage - 1)
+                    )
+                  : dispatch(
+                      popularActions.setPopularShowsPage(currentShowsPage - 1)
+                    );
+              }}
+              handleNext={() => {
+                mediaMode === "movies"
+                  ? dispatch(
+                      popularActions.setPopularMoviesPage(currentMoviesPage + 1)
+                    )
+                  : dispatch(
+                      popularActions.setPopularShowsPage(currentShowsPage + 1)
+                    );
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
