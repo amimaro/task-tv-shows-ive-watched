@@ -63,7 +63,7 @@ const ShowEpisode: NextPage = () => {
             </div>
           )}
         </div>
-        {episodeDetails.still_path.length > 0 && (
+        {episodeDetails.still_path && episodeDetails.still_path.length > 0 && (
           <div className="flex md:flex-row flex-col md:items-start items-center gap-5">
             <img
               src={`https://image.tmdb.org/t/p/w500${episodeDetails.still_path}`}
@@ -72,10 +72,12 @@ const ShowEpisode: NextPage = () => {
             />
           </div>
         )}
-        <div className="flex flex-col items-center gap-2">
-          <AppSubtitle>Overview</AppSubtitle>
-          <div className="w-96 text-justify">{episodeDetails.overview}</div>
-        </div>
+        {episodeDetails.overview && episodeDetails.overview.length > 0 && (
+          <div className="flex flex-col items-center gap-2">
+            <AppSubtitle>Overview</AppSubtitle>
+            <div className="w-96 text-justify">{episodeDetails.overview}</div>
+          </div>
+        )}
         <AppNote mediaId={episodeDetails.id} />
       </div>
     </div>
