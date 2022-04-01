@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AppMediaItem from "../../../../../components/AppMediaItem";
+import AppNote from "../../../../../components/AppNote";
 import AppTitle from "../../../../../components/AppTitle";
 import { getData } from "../../../../../utils/helpers";
 
@@ -79,6 +80,7 @@ const ShowSeason: NextPage = () => {
             </div>
           </>
         )}
+        <AppNote mediaId={seasonDetails.id} />
       </div>
     </div>
   );

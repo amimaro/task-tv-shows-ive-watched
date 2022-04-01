@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AppMediaItem from "../../../../../../../components/AppMediaItem";
+import AppNote from "../../../../../../../components/AppNote";
 import AppSubtitle from "../../../../../../../components/AppSubtitle";
 import AppTitle from "../../../../../../../components/AppTitle";
 import { getData } from "../../../../../../../utils/helpers";
@@ -75,6 +76,7 @@ const ShowEpisode: NextPage = () => {
           <AppSubtitle>Overview</AppSubtitle>
           <div className="w-96 text-justify">{episodeDetails.overview}</div>
         </div>
+        <AppNote mediaId={episodeDetails.id} />
       </div>
     </div>
   );

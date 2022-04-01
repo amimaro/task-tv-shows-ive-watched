@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AppMediaControlItem from "../../../components/AppMediaControlItem";
 import AppMediaItem from "../../../components/AppMediaItem";
+import AppNote from "../../../components/AppNote";
 import AppPopularityIndicator from "../../../components/AppPopularityIndicator";
 import AppTitle from "../../../components/AppTitle";
 import { getData } from "../../../utils/helpers";
@@ -102,6 +103,7 @@ const Show: NextPage = () => {
             </div>
           </>
         )}
+        <AppNote mediaId={showDetails.id} />
       </div>
     </div>
   );

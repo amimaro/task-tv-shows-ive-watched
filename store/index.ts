@@ -10,6 +10,7 @@ import { persistReducer } from "redux-persist";
 import popularSlice from "./popular-slice";
 import favoriteSlice from "./favorite-slice";
 import viewedSlice from "./viewed-slice";
+import noteSlice from "./note-slice";
 
 const persistConfig = {
   key: "tvShows",
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   popular: popularSlice.reducer,
   favorite: favoriteSlice.reducer,
   viewed: viewedSlice.reducer,
+  note: noteSlice.reducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

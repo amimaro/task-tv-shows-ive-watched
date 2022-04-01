@@ -82,7 +82,7 @@ export default function AppMediaItem({
         <Link href={path}>
           <a>
             <div
-              className={`flex flex-col p-2 justify-end ${
+              className={`flex flex-col p-4 justify-end ${
                 poster !== 'episode' ? "h-24" : ""
               }`}
             >
